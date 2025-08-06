@@ -2,6 +2,7 @@
   "expo": {
     "name": "jobsity-series-app",
     "slug": "jobsity-series-app",
+    "scheme": "jobsityseriesapp", 
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,7 +24,11 @@
       "edgeToEdgeEnabled": true
     },
     "web": {
+      "bundler": "metro",
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }
