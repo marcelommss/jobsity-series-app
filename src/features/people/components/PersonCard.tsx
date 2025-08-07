@@ -1,45 +1,49 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { router } from 'expo-router';
 import { Person } from '@/types';
-import React from 'react';
 
 interface PersonCardProps {
   person: Person;
 }
 
-export const PersonCard = ({ person }: PersonCardProps) => {
+const PersonCard = ({ person }: PersonCardProps) => {
+  const { id, name, image, country, birthday, deathday, gender } = person;
+
   const handlePress = () => {
     router.push({
       pathname: '/person/[id]',
       params: {
-        id: person.id.toString(),
-        name: person.name,
-        image: person.image?.medium || '',
-        country: person.country?.name || '',
-        birthday: person.birthday || '',
-        deathday: person.deathday || '',
-        gender: person.gender || '',
+        id: id.toString(),
+        name,
+        image: image?.medium || '',
+        country: country?.name || '',
+        birthday: birthday || '',
+        deathday: deathday || '',
+        gender: gender || '',
       },
     });
   };
 
   const formatAge = () => {
-    if (!person.birthday) return null;
-    
+    if (!birthday) return null;
+
     try {
-      const birthDate = new Date(person.birthday);
-      const endDate = person.deathday ? new Date(person.deathday) : new Date();
+      const birthDate = new Date(birthday);
+      const endDate = deathday ? new Date(deathday) : new Date();
       let age = endDate.getFullYear() - birthDate.getFullYear();
       const monthDiff = endDate.getMonth() - birthDate.getMonth();
-      
-      if (monthDiff < 0 || (monthDiff === 0 && endDate.getDate() < birthDate.getDate())) {
+
+      if (
+        monthDiff < 0 ||
+        (monthDiff === 0 && endDate.getDate() < birthDate.getDate())
+      ) {
         age = age - 1;
       }
-      
-      if (person.deathday) {
+
+      if (deathday) {
         return `${age} (${birthDate.getFullYear()}-${endDate.getFullYear()})`;
       }
-      
+
       return `${age} years old`;
     } catch {
       return null;
@@ -47,17 +51,17 @@ export const PersonCard = ({ person }: PersonCardProps) => {
   };
 
   return (
-    <TouchableOpacity 
+    <TouchableOpacity
       onPress={handlePress}
       className="flex-row gap-4 p-4 bg-surface rounded-2xl shadow-lg mb-4 mx-4 max-h-36"
       activeOpacity={0.95}
     >
       <View className="w-20 h-28 rounded-xl overflow-hidden bg-surface-elevated">
-        {person.image?.medium ? (
+        {image?.medium ? (
           <Image
-            source={{ uri: person.image.medium }}
-            style={{ 
-              width: '100%', 
+            source={{ uri: image.medium }}
+            style={{
+              width: '100%',
               height: '100%',
             }}
             resizeMode="cover"
@@ -73,18 +77,18 @@ export const PersonCard = ({ person }: PersonCardProps) => {
 
       <View className="flex-1 py-1">
         <View className="flex-row items-start mb-2">
-          <Text 
+          <Text
             className="text-lg font-sans-bold text-aqua flex-1 leading-6"
             numberOfLines={2}
           >
-            {person.name}
+            {name}
           </Text>
         </View>
 
-        {person.country && (
+        {country && (
           <View className="mb-2">
             <Text className="text-sm text-text-muted font-sans-medium leading-5">
-              📍 {person.country.name}
+              📍 {country.name}
             </Text>
           </View>
         )}
@@ -97,11 +101,11 @@ export const PersonCard = ({ person }: PersonCardProps) => {
               </Text>
             </View>
           )}
-          
-          {person.gender && (
+
+          {gender && (
             <View className="bg-surface-elevated px-2 py-1 rounded-xl">
               <Text className="text-xs font-sans-semibold text-text-secondary">
-                {person.gender}
+                {gender}
               </Text>
             </View>
           )}
@@ -110,3 +114,4 @@ export const PersonCard = ({ person }: PersonCardProps) => {
     </TouchableOpacity>
   );
 };
+export default PersonCard;

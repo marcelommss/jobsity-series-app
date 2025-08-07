@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { SeriesList } from '../SeriesList';
+import SeriesList from '../SeriesList';
 import { Series } from '@/types';
 
 jest.mock('../SeriesCard', () => ({

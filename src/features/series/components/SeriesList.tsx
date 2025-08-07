@@ -1,6 +1,6 @@
 import { FlatList, ActivityIndicator } from 'react-native';
 import { Series } from '@/types';
-import { SeriesCard } from './SeriesCard';
+import SeriesCard from './SeriesCard';
 import { PAGINATION_THRESHOLD } from '@/shared/constants';
 
 interface SeriesListProps {
@@ -10,7 +10,12 @@ interface SeriesListProps {
   onEndReached: () => void;
 }
 
-export function SeriesList({ data, loading, hasMore, onEndReached }: SeriesListProps) {
+const SeriesList = ({
+  data,
+  loading,
+  hasMore,
+  onEndReached,
+}: SeriesListProps) => {
   return (
     <FlatList
       className="px-4 bg-dark"
@@ -25,4 +30,6 @@ export function SeriesList({ data, loading, hasMore, onEndReached }: SeriesListP
       showsVerticalScrollIndicator={false}
     />
   );
-}
+};
+
+export default SeriesList;

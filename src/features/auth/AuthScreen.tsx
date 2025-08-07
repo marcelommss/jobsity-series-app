@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import {
   View,
   Text,
@@ -14,8 +14,10 @@ import { useRouter } from 'expo-router';
 import BackgroundImage from '@assets/background.png';
 import LogoImage from '@assets/logo.png';
 import { useAuth } from './hooks/useAuth';
+import packageJson from '../../../package.json';
 
 const AuthScreen = () => {
+  const { version } = packageJson;
   const router = useRouter();
   const {
     pin,
@@ -62,7 +64,7 @@ const AuthScreen = () => {
               <Text className="text-xl font-semibold mb-6 text-white text-center">
                 Use Biometric Authentication
               </Text>
-              
+
               <Text className="text-gray-400 text-center mb-8">
                 Touch the fingerprint sensor or use face recognition to unlock
               </Text>
@@ -86,13 +88,18 @@ const AuthScreen = () => {
               </TouchableOpacity>
             </View>
           </View>
+          <View className="absolute bottom-0 left-0 right-0 mb-10">
+            <Text className="text-center text-gray-300 text-sm">
+              Version {version}
+            </Text>
+          </View>
         </SafeAreaView>
       </ImageBackground>
     );
   }
 
   return (
-    <ImageBackground source={BackgroundImage} className="flex-1  bg-black">
+    <ImageBackground source={BackgroundImage} className="flex-1 bg-black">
       <SafeAreaView className="flex-1">
         <View className="h-1/4 my-12 mx-12">
           <Image
@@ -161,6 +168,11 @@ const AuthScreen = () => {
               </View>
             )}
           </View>
+        </View>
+        <View className="absolute bottom-0 left-0 right-0 mb-10">
+          <Text className="text-center text-gray-300 text-sm">
+            Version {version}
+          </Text>
         </View>
       </SafeAreaView>
     </ImageBackground>

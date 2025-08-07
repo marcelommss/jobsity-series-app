@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { router } from 'expo-router';
-import { EpisodesList } from '../EpisodesList';
+import EpisodesList from '../EpisodesList';
 
 jest.mock('expo-router', () => ({
   router: {

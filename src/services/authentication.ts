@@ -63,11 +63,11 @@ export async function isEnrolledAsync(): Promise<boolean> {
 
 export async function authenticateWithBiometrics(): Promise<boolean> {
   try {
-    const result = await LocalAuthentication.authenticateAsync({
+    const { success } = await LocalAuthentication.authenticateAsync({
       promptMessage: 'Authenticate to access the app',
       fallbackLabel: 'Use PIN',
     });
-    return result.success;
+    return success;
   } catch (error) {
     return false;
   }

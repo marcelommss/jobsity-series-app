@@ -1,10 +1,12 @@
+export interface ImageType {
+  medium: string;
+  original: string;
+}
+
 export interface Series {
   id: number;
   name: string;
-  image?: {
-    medium: string;
-    original: string;
-  } | null;
+  image?: ImageType | null;
   genres?: string[] | null;
   premiered?: string | null;
   summary?: string | null;
@@ -31,10 +33,7 @@ export interface Episode {
   season: number;
   number: number;
   summary?: string | null;
-  image?: {
-    medium: string;
-    original: string;
-  } | null;
+  image?: ImageType | null;
   airdate?: string | null;
   runtime?: number | null;
 }
@@ -58,10 +57,7 @@ export interface PaginationState {
 export interface Person {
   id: number;
   name: string;
-  image?: {
-    medium: string;
-    original: string;
-  } | null;
+  image?: ImageType | null;
   country?: {
     name: string;
     code: string;

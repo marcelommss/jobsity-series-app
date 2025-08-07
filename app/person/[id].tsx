@@ -4,8 +4,8 @@ import { useLocalSearchParams, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ArrowLeftIcon } from 'lucide-react-native';
 import { usePersonDetails } from '@/features/people/hooks/usePersonDetails';
-import { SeriesCredit } from '@/features/people/components/SeriesCredit';
-import { ErrorMessage } from '@/shared/components/ErrorMessage';
+import SeriesCredit from '@/features/people/components/SeriesCredit';
+import ErrorMessage from '@/shared/components/ErrorMessage';
 
 export default function PersonDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();

@@ -6,7 +6,7 @@ interface ErrorMessageProps {
   onRetry?: () => void;
 }
 
-export function ErrorMessage({ error, onRetry }: ErrorMessageProps) {
+const ErrorMessage = ({ error, onRetry }: ErrorMessageProps) => {
   return (
     <View className="flex-1 justify-center items-center px-4 bg-dark">
       <Text className="text-center text-support-error text-lg font-sans-medium mb-4">
@@ -25,4 +25,6 @@ export function ErrorMessage({ error, onRetry }: ErrorMessageProps) {
       )}
     </View>
   );
-}
+};
+
+export default ErrorMessage;

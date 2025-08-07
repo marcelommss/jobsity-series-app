@@ -6,8 +6,8 @@ jest.mock('../hooks/useSeriesData', () => ({
   useSeriesData: jest.fn(),
 }));
 
-jest.mock('../components/SeriesSearchInput', () => ({
-  SeriesSearchInput: ({ value, onChangeText, onDebouncedChange }: any) => {
+jest.mock('../components/SeriesSearchInput', () => {
+  const mockSearchInput = ({ value, onChangeText, onDebouncedChange }: any) => {
     const React = require('react');
     const { View, TextInput } = require('react-native');
     return React.createElement(
@@ -20,11 +20,12 @@ jest.mock('../components/SeriesSearchInput', () => ({
         placeholder: 'Search TV series...'
       })
     );
-  }
-}));
+  };
+  return { __esModule: true, default: mockSearchInput };
+});
 
-jest.mock('../components/SeriesList', () => ({
-  SeriesList: ({ data, loading, hasMore, onEndReached }: any) => {
+jest.mock('../components/SeriesList', () => {
+  const mockSeriesList = ({ data, loading, hasMore, onEndReached }: any) => {
     const React = require('react');
     const { View, Text } = require('react-native');
     return React.createElement(
@@ -34,11 +35,12 @@ jest.mock('../components/SeriesList', () => ({
       loading && React.createElement(Text, { testID: 'loading' }, 'Loading...'),
       React.createElement(Text, { testID: 'has-more' }, `Has more: ${hasMore}`)
     );
-  }
-}));
+  };
+  return { __esModule: true, default: mockSeriesList };
+});
 
-jest.mock('@/shared/components/ErrorMessage', () => ({
-  ErrorMessage: ({ error, onRetry }: any) => {
+jest.mock('@/shared/components/ErrorMessage', () => {
+  const mockErrorMessage = ({ error, onRetry }: any) => {
     const React = require('react');
     const { View, Text, TouchableOpacity } = require('react-native');
     return React.createElement(
@@ -51,8 +53,9 @@ jest.mock('@/shared/components/ErrorMessage', () => ({
         React.createElement(Text, null, 'Try Again')
       )
     );
-  }
-}));
+  };
+  return { __esModule: true, default: mockErrorMessage };
+});
 
 import { useSeriesData } from '../hooks/useSeriesData';
 

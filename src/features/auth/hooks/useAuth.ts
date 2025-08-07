@@ -28,11 +28,10 @@ export const useAuth = () => {
       const hasHardware = await hasHardwareAsync();
       const isEnrolled = await isEnrolledAsync();
       const biometricPref = await getBiometricPreference();
-      
+
       setBiometricAvailable(hasHardware && isEnrolled);
       setBiometricEnabled(biometricPref);
-      
-      // Show biometric prompt if available and enabled
+
       if (hasHardware && isEnrolled && biometricPref) {
         const storedPin = await getPin();
         if (storedPin) {
@@ -46,8 +45,6 @@ export const useAuth = () => {
       setIsBiometricLoading(false);
     }
   };
-
-
 
   const handlePinSubmit = async () => {
     if (pin.length < 4) {

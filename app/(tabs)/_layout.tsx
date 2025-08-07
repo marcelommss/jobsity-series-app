@@ -1,7 +1,12 @@
-import { Tabs } from 'expo-router';
-import { TvIcon, UsersIcon, HeartIcon } from 'lucide-react-native';
+import { Pressable } from 'react-native';
+import { Tabs, router } from 'expo-router';
+import { TvIcon, UsersIcon, HeartIcon, LockIcon } from 'lucide-react-native';
 
 export default function TabsLayout() {
+  const handleLockPress = () => {
+    router.push('/auth');
+  };
+
   return (
     <Tabs
       screenOptions={{
@@ -16,6 +21,17 @@ export default function TabsLayout() {
           backgroundColor: '#1A1D21',
         },
         headerTintColor: '#F8FAFC',
+        headerRight: () => (
+          <Pressable
+            onPress={handleLockPress}
+            className="mr-4 p-2 rounded-full"
+            style={({ pressed }) => ({
+              opacity: pressed ? 0.7 : 1,
+            })}
+          >
+            <LockIcon color="#F8FAFC" size={24} />
+          </Pressable>
+        ),
       }}
     >
       <Tabs.Screen
@@ -46,7 +62,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          href: null, // This hides the tab from the tab bar
+          href: null,
         }}
       />
     </Tabs>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { router } from 'expo-router';
-import { SeriesCard } from '../SeriesCard';
+import SeriesCard from '../SeriesCard';
 import { Series } from '@/types';
 
 jest.mock('expo-router', () => ({

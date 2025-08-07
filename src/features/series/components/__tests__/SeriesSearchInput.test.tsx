@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
-import { SeriesSearchInput } from '../SeriesSearchInput';
+import SeriesSearchInput from '../SeriesSearchInput';
 
 jest.mock('@/shared/utils', () => ({
   debounce: jest.fn((fn, delay) => {

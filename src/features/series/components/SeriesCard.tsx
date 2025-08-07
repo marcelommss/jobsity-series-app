@@ -1,15 +1,16 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { router } from 'expo-router';
 import { Series } from '@/types';
-import React from 'react';
 
 interface SeriesCardProps {
   series: Series;
 }
 
-export const SeriesCard = ({ series }: SeriesCardProps) => {
+const SeriesCard = ({ series }: SeriesCardProps) => {
+  const { id, name, image, premiered, genres, rating, status } = series;
+  
   const handlePress = () => {
-    router.push(`/series/${series.id}`);
+    router.push(`/series/${id}`);
   };
 
   const formatYear = (premiered: string) => {
@@ -23,10 +24,10 @@ export const SeriesCard = ({ series }: SeriesCardProps) => {
       activeOpacity={0.95}
     >
       <View className="w-20 h-28 rounded-xl overflow-hidden bg-surface-elevated">
-        {series.image?.medium ? (
+        {image?.medium ? (
           <Image
-            source={{ uri: series.image.medium }}
-            alt={series.name}
+            source={{ uri: image.medium }}
+            alt={name}
             style={{
               width: '100%',
               height: '100%',
@@ -48,51 +49,57 @@ export const SeriesCard = ({ series }: SeriesCardProps) => {
             className="text-lg font-sans-bold text-text-primary flex-1 leading-6"
             numberOfLines={2}
           >
-            {series.name}
+            {name}
           </Text>
-          {series.premiered && (
+          {premiered && (
             <View className="bg-surface-elevated px-2 py-1 rounded-lg ml-2">
               <Text className="text-xs font-sans-semibold text-text-secondary">
-                {formatYear(series.premiered)}
+                {formatYear(premiered)}
               </Text>
             </View>
           )}
         </View>
 
-        {series.genres && series.genres.length > 0 && (
+        {genres && genres.length > 0 && (
           <View className="mb-2">
             <Text className="text-sm text-text-muted font-sans-medium leading-5">
-              {series.genres.slice(0, 3).join(' • ')}
+              {genres.slice(0, 3).join(' • ')}
             </Text>
           </View>
         )}
 
         <View className="flex-row items-center justify-between mt-auto">
-          {series.rating?.average && (
-            <View className="flex-row items-center bg-aqua-100 px-2 py-1 rounded-xl">
-              <Text className="text-xs mr-1">⭐</Text>
-              <Text className="text-xs font-sans-semibold text-aqua-800">
-                {series.rating.average.toFixed(1)}
+          {rating?.average && (
+            <View className="flex-row items-center bg-surface-elevated px-2.5 py-1.5 rounded-xl border border-accent-primary/20">
+              <View className="w-3 h-3 mr-1.5 items-center justify-center">
+                <Text className="text-accent-primary text-xs leading-none">★</Text>
+              </View>
+              <Text className="text-xs font-sans-semibold text-accent-primary">
+                {rating.average.toFixed(1)}
               </Text>
             </View>
           )}
 
-          {series.status && (
+          {status && (
             <View
-              className={`px-2 py-1 rounded-xl ${
-                series.status === 'Ended'
-                  ? 'bg-support-error/20'
-                  : 'bg-emerald-200'
+              className={`px-2.5 py-1.5 rounded-xl border ${
+                status === 'Ended'
+                  ? 'bg-surface-elevated border-support-error/30'
+                  : status === 'Running'
+                  ? 'bg-surface-elevated border-support-success/30'
+                  : 'bg-surface-elevated border-text-muted/20'
               }`}
             >
               <Text
                 className={`text-xs font-sans-semibold ${
-                  series.status === 'Ended'
+                  status === 'Ended'
                     ? 'text-support-error'
-                    : 'text-emerald-800'
+                    : status === 'Running'
+                    ? 'text-support-success'
+                    : 'text-text-muted'
                 }`}
               >
-                {series.status}
+                {status}
               </Text>
             </View>
           )}
@@ -101,3 +108,5 @@ export const SeriesCard = ({ series }: SeriesCardProps) => {
     </TouchableOpacity>
   );
 };
+
+export default SeriesCard;

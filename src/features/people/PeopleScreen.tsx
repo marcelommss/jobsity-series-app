@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   View,
   Text,
@@ -7,8 +6,8 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { SearchIcon } from 'lucide-react-native';
-import { PersonCard } from './components/PersonCard';
-import { ErrorMessage } from '@/shared/components/ErrorMessage';
+import PersonCard from './components/PersonCard';
+import ErrorMessage from '@/shared/components/ErrorMessage';
 import { usePeopleSearch } from './hooks/usePeopleSearch';
 
 export function PeopleScreen() {
@@ -34,7 +33,6 @@ export function PeopleScreen() {
           </Text>
         </View>
 
-        {/* Search Input */}
         <View className="relative mb-6">
           <View className="absolute left-4 top-4 z-10">
             <SearchIcon size={20} color="#94A3B8" />
@@ -51,7 +49,6 @@ export function PeopleScreen() {
           />
         </View>
 
-        {/* Loading State */}
         {loading && (
           <View className="flex-1 justify-center items-center py-20">
             <ActivityIndicator size="large" color="#10F5D4" />
@@ -61,14 +58,12 @@ export function PeopleScreen() {
           </View>
         )}
 
-        {/* Error State */}
         {error && !loading && (
           <View className="mb-4">
             <ErrorMessage error={error} onRetry={retrySearch} />
           </View>
         )}
 
-        {/* Empty Search State */}
         {!hasSearched && !loading && searchQuery.trim() === '' && (
           <View className="flex-1 justify-center items-center py-20">
             <Text className="text-6xl mb-4">🎭</Text>
@@ -82,7 +77,6 @@ export function PeopleScreen() {
           </View>
         )}
 
-        {/* No Results State */}
         {hasSearched &&
           people.length === 0 &&
           !loading &&
@@ -99,7 +93,6 @@ export function PeopleScreen() {
             </View>
           )}
 
-        {/* Results */}
         {people.length > 0 && !loading && (
           <View>
             <Text className="text-lg font-sans-semibold text-text-primary mb-4">

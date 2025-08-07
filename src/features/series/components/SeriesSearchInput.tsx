@@ -1,5 +1,5 @@
-import { TextInput, View, TouchableOpacity, Text } from 'react-native';
 import { useEffect, useRef, useState } from 'react';
+import { TextInput, View, TouchableOpacity, Text } from 'react-native';
 import { SearchIcon } from 'lucide-react-native';
 import { SEARCH_DEBOUNCE_DELAY } from '@/shared/constants';
 import { debounce } from '@/shared/utils';
@@ -10,11 +10,11 @@ interface SeriesSearchInputProps {
   onDebouncedChange: (text: string) => void;
 }
 
-export function SeriesSearchInput({
+const SeriesSearchInput = ({
   value,
   onChangeText,
   onDebouncedChange,
-}: SeriesSearchInputProps) {
+}: SeriesSearchInputProps) => {
   const isFirstRender = useRef(true);
   const lastValue = useRef(value);
   const [isFocused, setIsFocused] = useState(false);
@@ -49,7 +49,7 @@ export function SeriesSearchInput({
           <SearchIcon size={20} color="#94A3B8" />
         </View>
         <TextInput
-          className="bg-surface-elevated text-text-primary px-12 py-4 rounded-2xl font-sans-regular text-base  tracking-normal"
+          className="bg-surface-elevated text-text-primary px-12 py-4 rounded-2xl font-sans-regular text-base tracking-normal"
           placeholder="Search TV series..."
           placeholderTextColor="#64748B"
           value={value}
@@ -88,4 +88,6 @@ export function SeriesSearchInput({
       )}
     </View>
   );
-}
+};
+
+export default SeriesSearchInput;

@@ -6,8 +6,8 @@ import { ArrowLeftIcon, HeartIcon } from 'lucide-react-native';
 import { Series, APIError } from '@/types';
 import { fetchSeriesById, SeriesServiceError } from '@/services/seriesService';
 import { FavoritesService } from '@/services/favoritesService';
-import { ErrorMessage } from '@/shared/components/ErrorMessage';
-import { EpisodesList } from '@/features/episodes/components/EpisodesList';
+import ErrorMessage from '@/shared/components/ErrorMessage';
+import EpisodesList from '@/features/episodes/components/EpisodesList';
 
 export default function SeriesDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();

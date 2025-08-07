@@ -1,6 +1,5 @@
-import React from 'react';
 import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
-import { SeriesCard } from './components/SeriesCard';
+import SeriesCard from './components/SeriesCard';
 import { FavoriteItem, Series } from '@/types';
 import { useFavoritesRefresh } from './hooks/useFavoritesRefresh';
 

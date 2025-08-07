@@ -1,8 +1,8 @@
 import { View } from 'react-native';
 import { useSeriesData } from './hooks/useSeriesData';
-import { SeriesSearchInput } from './components/SeriesSearchInput';
-import { SeriesList } from './components/SeriesList';
-import { ErrorMessage } from '@/shared/components/ErrorMessage';
+import SeriesSearchInput from './components/SeriesSearchInput';
+import SeriesList from './components/SeriesList';
+import ErrorMessage from '@/shared/components/ErrorMessage';
 
 export function HomeScreen() {
   const {

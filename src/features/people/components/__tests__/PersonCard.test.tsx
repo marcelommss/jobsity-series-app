@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { router } from 'expo-router';
-import { PersonCard } from '../PersonCard';
+import PersonCard from '../PersonCard';
 import { Person } from '@/types';
 
 // Mock router
