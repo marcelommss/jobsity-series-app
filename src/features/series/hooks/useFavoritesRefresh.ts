@@ -1,38 +1,54 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { AppState } from 'react-native';
-import { FavoritesService, FavoriteItem } from '@/services/favoritesService';
+import { FavoritesService } from '@/services/favoritesService';
+import { FavoriteItem } from '@/types';
 
 export function useFavoritesRefresh() {
   const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const loadFavorites = async () => {
-    setLoading(true);
+  const loadFavorites = useCallback(async (showLoading = true) => {
+    if (showLoading) {
+      setLoading(true);
+    }
     try {
       const favoritesList = await FavoritesService.getFavorites();
       setFavorites(favoritesList);
     } catch (error) {
     } finally {
-      setLoading(false);
+      if (showLoading) {
+        setLoading(false);
+      }
     }
-  };
+  }, []);
+
+  const refreshOnFocus = useCallback(() => {
+    loadFavorites(true);
+  }, [loadFavorites]);
 
   useEffect(() => {
     loadFavorites();
 
-    // Listen for app state changes to refresh favorites when app becomes active
     const handleAppStateChange = (nextAppState: string) => {
       if (nextAppState === 'active') {
-        loadFavorites();
+        loadFavorites(false);
       }
     };
 
-    const subscription = AppState.addEventListener('change', handleAppStateChange);
+    const subscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange
+    );
 
     return () => {
       subscription?.remove();
     };
   }, []);
 
-  return { favorites, loading, refreshFavorites: loadFavorites };
+  return {
+    favorites,
+    loading,
+    refreshFavorites: loadFavorites,
+    refreshOnFocus,
+  };
 }

@@ -5,6 +5,8 @@ import {
   TextInput,
   ActivityIndicator,
 } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback, useRef } from 'react';
 import { SearchIcon } from 'lucide-react-native';
 import PersonCard from './components/PersonCard';
 import ErrorMessage from '@/shared/components/ErrorMessage';
@@ -20,6 +22,18 @@ export function PeopleScreen() {
     hasSearched,
     retrySearch,
   } = usePeopleSearch();
+
+  const inputRef = useRef<TextInput>(null);
+
+  useFocusEffect(
+    useCallback(() => {
+      const timer = setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }, [])
+  );
 
   return (
     <ScrollView className="flex-1 bg-dark" showsVerticalScrollIndicator={false}>
@@ -38,6 +52,7 @@ export function PeopleScreen() {
             <SearchIcon size={20} color="#94A3B8" />
           </View>
           <TextInput
+            ref={inputRef}
             className="bg-surface-elevated text-text-primary px-12 py-4 rounded-2xl font-sans-regular text-base"
             placeholder="Search for people..."
             placeholderTextColor="#64748B"

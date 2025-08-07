@@ -16,6 +16,7 @@ interface UseSeriesDataReturn {
   setDebouncedSearchTerm: (term: string) => void;
   loadMoreSeries: () => Promise<void>;
   refreshSeries: () => Promise<void>;
+  refreshOnFocus: () => Promise<void>;
 }
 
 export function useSeriesData(): UseSeriesDataReturn {
@@ -31,6 +32,16 @@ export function useSeriesData(): UseSeriesDataReturn {
 
   const searchRequestRef = useRef<boolean>(false);
   const loadRequestRef = useRef<boolean>(false);
+  const seriesRef = useRef<Series[]>([]);
+  const searchTermRef = useRef<string>('');
+
+  useEffect(() => {
+    seriesRef.current = series;
+  }, [series]);
+
+  useEffect(() => {
+    searchTermRef.current = searchTerm;
+  }, [searchTerm]);
 
   const isSearchMode = searchTerm.trim() !== '';
   const PAGE_SIZE = 20;
@@ -177,6 +188,31 @@ export function useSeriesData(): UseSeriesDataReturn {
     }
   }, []);
 
+  const refreshOnFocus = useCallback(async () => {
+    if (searchTermRef.current.trim() === '' && seriesRef.current.length === 0) {
+      setLoading(true);
+      setError(null);
+      try {
+        const newSeries = await fetchSeriesByPage(0);
+        if (newSeries.length > 0) {
+          setSeries(newSeries);
+          setPage(1);
+          setHasMore(true);
+        } else {
+          setHasMore(false);
+        }
+      } catch (err) {
+        const apiError: APIError =
+          err instanceof SeriesServiceError
+            ? { message: err.message, status: err.status }
+            : { message: 'Failed to load series' };
+        setError(apiError);
+      } finally {
+        setLoading(false);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     if (!initialized) {
       setInitialized(true);
@@ -194,5 +230,6 @@ export function useSeriesData(): UseSeriesDataReturn {
     setDebouncedSearchTerm: handleDebouncedSearch,
     loadMoreSeries,
     refreshSeries,
+    refreshOnFocus,
   };
 }

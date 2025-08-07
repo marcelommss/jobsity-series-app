@@ -25,9 +25,10 @@ export function usePeopleSearch() {
       setPeople(results);
       setHasSearched(true);
     } catch (err) {
-      const apiError: APIError = err instanceof PeopleServiceError
-        ? { message: err.message, status: err.status }
-        : { message: 'Failed to search people' };
+      const apiError: APIError =
+        err instanceof PeopleServiceError
+          ? { message: err.message, status: err.status }
+          : { message: 'Failed to search people' };
       setError(apiError);
       setPeople([]);
       setHasSearched(true);
@@ -36,7 +37,6 @@ export function usePeopleSearch() {
     }
   };
 
-  // Debounce search
   useEffect(() => {
     const timer = setTimeout(() => {
       handleSearch(searchQuery);
@@ -49,6 +49,14 @@ export function usePeopleSearch() {
     handleSearch(searchQuery);
   };
 
+  const resetSearch = () => {
+    setSearchQuery('');
+    setPeople([]);
+    setError(null);
+    setHasSearched(false);
+    setLoading(false);
+  };
+
   return {
     searchQuery,
     setSearchQuery,
@@ -57,5 +65,6 @@ export function usePeopleSearch() {
     error,
     hasSearched,
     retrySearch,
+    resetSearch,
   };
 }

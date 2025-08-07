@@ -1,4 +1,6 @@
 import { View } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback, useRef } from 'react';
 import { useSeriesData } from './hooks/useSeriesData';
 import SeriesSearchInput from './components/SeriesSearchInput';
 import SeriesList from './components/SeriesList';
@@ -15,7 +17,20 @@ export function HomeScreen() {
     setDebouncedSearchTerm,
     loadMoreSeries,
     refreshSeries,
+    refreshOnFocus,
   } = useSeriesData();
+
+  const isInitialMount = useRef(true);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (isInitialMount.current) {
+        isInitialMount.current = false;
+        return;
+      }
+      refreshOnFocus();
+    }, [refreshOnFocus])
+  );
 
   if (error) {
     return (

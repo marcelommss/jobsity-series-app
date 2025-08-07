@@ -1,10 +1,23 @@
 import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback, useRef } from 'react';
 import SeriesCard from './components/SeriesCard';
 import { FavoriteItem, Series } from '@/types';
 import { useFavoritesRefresh } from './hooks/useFavoritesRefresh';
 
 export function FavoritesScreen() {
-  const { favorites, loading } = useFavoritesRefresh();
+  const { favorites, loading, refreshOnFocus } = useFavoritesRefresh();
+  const isInitialMount = useRef(true);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (isInitialMount.current) {
+        isInitialMount.current = false;
+        return;
+      }
+      refreshOnFocus();
+    }, [refreshOnFocus])
+  );
 
   const convertToSeries = (favorite: FavoriteItem): Series => ({
     id: favorite.id,
