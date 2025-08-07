@@ -25,7 +25,7 @@ This app was developed as part of a technical challenge for *Jobsity*.
 
 | Feature                          | Status |
 | -------------------------------- | ------ |
-| PIN + Fingerprint authentication | ❌    |
+| PIN + Fingerprint authentication | ✅    |
 | Add/remove series from favorites | ✅    |
 | Favorites browsing               | ✅    |
 | People search and person details | ✅    |
