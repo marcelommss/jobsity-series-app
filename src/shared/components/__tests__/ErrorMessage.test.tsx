@@ -10,10 +10,9 @@ describe('ErrorMessage', () => {
   };
 
   it('should render error message correctly', () => {
-    const { getByText } = render(<ErrorMessage error={mockError} />);
+    const { getByText, getAllByText } = render(<ErrorMessage error={mockError} />);
 
-    expect(getByText('Something went wrong')).toBeTruthy();
-    expect(getByText('Something went wrong')).toBeTruthy();
+    expect(getAllByText('Something went wrong')).toHaveLength(2);
   });
 
   it('should render retry button when onRetry is provided', () => {

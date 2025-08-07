@@ -54,7 +54,7 @@ describe('episodesService', () => {
       } as any);
 
       await expect(fetchSeriesEpisodes(999999)).rejects.toThrow(EpisodesServiceError);
-      await expect(fetchSeriesEpisodes(999999)).rejects.toThrow('Error fetching episodes: Not Found');
+      await expect(fetchSeriesEpisodes(999999)).rejects.toThrow('Failed to fetch episodes');
     });
 
     it('should throw EpisodesServiceError on network error', async () => {

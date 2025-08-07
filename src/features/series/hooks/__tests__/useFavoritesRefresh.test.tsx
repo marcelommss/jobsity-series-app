@@ -1,5 +1,4 @@
 import { renderHook, waitFor, act } from '@testing-library/react-native';
-import { AppState } from 'react-native';
 import { useFavoritesRefresh } from '../useFavoritesRefresh';
 import { FavoritesService, FavoriteItem } from '@/services/favoritesService';
 
@@ -8,11 +7,13 @@ jest.mock('@/services/favoritesService');
 const mockFavoritesService = FavoritesService as jest.Mocked<typeof FavoritesService>;
 
 // Mock AppState
-jest.mock('react-native', () => ({
-  ...jest.requireActual('react-native'),
-  AppState: {
-    addEventListener: jest.fn(),
-  },
+const mockAppState = {
+  addEventListener: jest.fn(),
+};
+
+// Mock react-native AppState in jest.mock scope
+jest.doMock('react-native', () => ({
+  AppState: mockAppState,
 }));
 
 describe('useFavoritesRefresh', () => {
@@ -22,7 +23,7 @@ describe('useFavoritesRefresh', () => {
     jest.clearAllMocks();
     
     // Mock AppState.addEventListener to capture the listener
-    (AppState.addEventListener as jest.Mock).mockImplementation((event, callback) => {
+    mockAppState.addEventListener.mockImplementation((event, callback) => {
       if (event === 'change') {
         mockAppStateListener = callback;
       }

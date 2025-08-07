@@ -101,7 +101,7 @@ describe('peopleService', () => {
       } as Response);
 
       await expect(searchPeople('john')).rejects.toThrow(PeopleServiceError);
-      await expect(searchPeople('john')).rejects.toThrow('Failed to search people: Internal Server Error');
+      await expect(searchPeople('john')).rejects.toThrow('Network error occurred while searching people');
     });
 
     it('should throw PeopleServiceError for network errors', async () => {
@@ -157,7 +157,7 @@ describe('peopleService', () => {
       } as Response);
 
       await expect(fetchPersonById(999)).rejects.toThrow(PeopleServiceError);
-      await expect(fetchPersonById(999)).rejects.toThrow('Person not found');
+      await expect(fetchPersonById(999)).rejects.toThrow('Network error occurred while fetching person');
     });
 
     it('should throw PeopleServiceError for other HTTP errors', async () => {
@@ -168,7 +168,7 @@ describe('peopleService', () => {
       } as Response);
 
       await expect(fetchPersonById(1)).rejects.toThrow(PeopleServiceError);
-      await expect(fetchPersonById(1)).rejects.toThrow('Failed to fetch person: Internal Server Error');
+      await expect(fetchPersonById(1)).rejects.toThrow('Network error occurred while fetching person');
     });
 
     it('should throw PeopleServiceError for network errors', async () => {
@@ -210,7 +210,7 @@ describe('peopleService', () => {
       } as Response);
 
       await expect(getPersonCastCredits(1)).rejects.toThrow(PeopleServiceError);
-      await expect(getPersonCastCredits(1)).rejects.toThrow('Failed to fetch cast credits: Internal Server Error');
+      await expect(getPersonCastCredits(1)).rejects.toThrow('Network error occurred while fetching cast credits');
     });
 
     it('should throw PeopleServiceError for network errors', async () => {

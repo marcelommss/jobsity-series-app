@@ -9,11 +9,11 @@ jest.mock('expo-router', () => ({
   },
 }));
 
-jest.mock('../hooks/useEpisodes', () => ({
+jest.mock('../../hooks/useEpisodes', () => ({
   useEpisodes: jest.fn(),
 }));
 
-import { useEpisodes } from '../hooks/useEpisodes';
+import { useEpisodes } from '../../hooks/useEpisodes';
 
 const mockUseEpisodes = useEpisodes as jest.MockedFunction<typeof useEpisodes>;
 

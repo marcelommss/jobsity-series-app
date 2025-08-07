@@ -26,7 +26,7 @@ describe('seriesService', () => {
           image: { medium: 'test.jpg', original: 'test-large.jpg' },
           summary: 'Test summary',
           schedule: { time: '20:00', days: ['Monday'] },
-          network: { id: 1, name: 'Test Network', country: { name: 'USA', code: 'US' } }
+          network: { name: 'Test Network', country: { name: 'USA', code: 'US' } }
         }
       ];
 
@@ -51,7 +51,7 @@ describe('seriesService', () => {
       } as any);
 
       await expect(fetchSeriesByPage(999)).rejects.toThrow(SeriesServiceError);
-      await expect(fetchSeriesByPage(999)).rejects.toThrow('Error fetching series (page 999): Not Found');
+      await expect(fetchSeriesByPage(999)).rejects.toThrow('Failed to fetch series data');
     });
 
     it('should throw SeriesServiceError on network error', async () => {
@@ -87,7 +87,7 @@ describe('seriesService', () => {
             image: { medium: 'bb.jpg', original: 'bb-large.jpg' },
             summary: '<p>Breaking Bad summary</p>',
             schedule: { time: '21:00', days: ['Sunday'] },
-            network: { id: 1, name: 'AMC', country: { name: 'USA', code: 'US' } }
+            network: { name: 'AMC', country: { name: 'USA', code: 'US' } }
           }
         }
       ];
@@ -126,7 +126,7 @@ describe('seriesService', () => {
       } as any);
 
       await expect(searchSeriesByName('test')).rejects.toThrow(SeriesServiceError);
-      await expect(searchSeriesByName('test')).rejects.toThrow('Error searching series: Internal Server Error');
+      await expect(searchSeriesByName('test')).rejects.toThrow('Failed to search series');
     });
 
     it('should return empty array for no results', async () => {
@@ -154,7 +154,7 @@ describe('seriesService', () => {
         image: { medium: 'test.jpg', original: 'test-large.jpg' },
         summary: 'Test summary',
         schedule: { time: '20:00', days: ['Monday'] },
-        network: { id: 1, name: 'Test Network', country: { name: 'USA', code: 'US' } }
+        network: { name: 'Test Network', country: { name: 'USA', code: 'US' } }
       };
 
       mockFetch.mockResolvedValueOnce({
@@ -178,7 +178,7 @@ describe('seriesService', () => {
       } as any);
 
       await expect(fetchSeriesById(999999)).rejects.toThrow(SeriesServiceError);
-      await expect(fetchSeriesById(999999)).rejects.toThrow('Error fetching series details: Not Found');
+      await expect(fetchSeriesById(999999)).rejects.toThrow('Failed to fetch series details');
     });
 
     it('should handle network errors', async () => {

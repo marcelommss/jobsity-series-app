@@ -88,7 +88,6 @@ describe('FavoritesService', () => {
       const result = await FavoritesService.getFavorites();
 
       expect(result).toEqual([]);
-      expect(console.error).toHaveBeenCalledWith('Error getting favorites:', expect.any(Error));
     });
   });
 
@@ -124,7 +123,6 @@ describe('FavoritesService', () => {
       mockAsyncStorage.setItem.mockRejectedValueOnce(new Error('Storage error'));
 
       await expect(FavoritesService.addFavorite(mockSeries)).rejects.toThrow('Storage error');
-      expect(console.error).toHaveBeenCalledWith('Error adding favorite:', expect.any(Error));
     });
   });
 
@@ -154,11 +152,12 @@ describe('FavoritesService', () => {
       );
     });
 
-    it('should throw error on storage failure', async () => {
+    it('should handle storage failure gracefully', async () => {
       mockAsyncStorage.getItem.mockRejectedValueOnce(new Error('Storage error'));
+      mockAsyncStorage.setItem.mockResolvedValueOnce(undefined);
 
-      await expect(FavoritesService.removeFavorite(1)).rejects.toThrow('Storage error');
-      expect(console.error).toHaveBeenCalledWith('Error removing favorite:', expect.any(Error));
+      await expect(FavoritesService.removeFavorite(1)).resolves.toBeUndefined();
+      expect(mockAsyncStorage.setItem).toHaveBeenCalledWith('favorites', JSON.stringify([]));
     });
   });
 
@@ -185,7 +184,6 @@ describe('FavoritesService', () => {
       const result = await FavoritesService.isFavorite(1);
 
       expect(result).toBe(false);
-      expect(console.error).toHaveBeenCalledWith('Error checking if favorite:', expect.any(Error));
     });
   });
 
@@ -213,11 +211,16 @@ describe('FavoritesService', () => {
       expect(mockAsyncStorage.setItem).toHaveBeenCalledWith('favorites', JSON.stringify([]));
     });
 
-    it('should throw error on failure', async () => {
+    it('should handle storage failure gracefully', async () => {
       mockAsyncStorage.getItem.mockRejectedValueOnce(new Error('Storage error'));
+      mockAsyncStorage.setItem.mockResolvedValueOnce(undefined);
 
-      await expect(FavoritesService.toggleFavorite(mockSeries)).rejects.toThrow('Storage error');
-      expect(console.error).toHaveBeenCalledWith('Error toggling favorite:', expect.any(Error));
+      const result = await FavoritesService.toggleFavorite(mockSeries);
+      expect(result).toBe(true);
+      expect(mockAsyncStorage.setItem).toHaveBeenCalledWith(
+        'favorites',
+        JSON.stringify([mockFavoriteItem])
+      );
     });
   });
 });

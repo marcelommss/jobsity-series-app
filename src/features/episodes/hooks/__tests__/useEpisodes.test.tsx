@@ -1,8 +1,8 @@
 import { renderHook, act, waitFor } from '@testing-library/react-native';
 import { useEpisodes } from '../useEpisodes';
-import * as episodesService from '../services/episodesService';
+import * as episodesService from '../../services/episodesService';
 
-jest.mock('../services/episodesService');
+jest.mock('../../services/episodesService');
 
 const mockEpisodesService = episodesService as jest.Mocked<typeof episodesService>;
 

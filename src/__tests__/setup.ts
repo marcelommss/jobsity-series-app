@@ -1,3 +1,26 @@
+// Mock the appearance observables module first
+jest.mock('react-native-css-interop/src/runtime/native/appearance-observables', () => ({
+  resetAppearanceListeners: jest.fn(),
+  addAppearanceListener: jest.fn(),
+}));
+
+// Mock the entire CSS Interop runtime system
+jest.mock('react-native-css-interop/src/runtime/native/api', () => ({}));
+jest.mock('react-native-css-interop/src/runtime/api.native', () => ({}));
+jest.mock('react-native-css-interop/src/runtime/wrap-jsx', () => ({}));
+jest.mock('react-native-css-interop/src/runtime/jsx-runtime', () => ({}));
+
+// Mock NativeWind and CSS Interop main modules
+jest.mock('react-native-css-interop', () => ({
+  styled: jest.fn((Component) => Component),
+  cssInterop: jest.fn(),
+}));
+
+// Mock NativeWind
+jest.mock('nativewind', () => ({
+  styled: jest.fn((Component) => Component),
+}));
+
 // Mock react-native-safe-area-context
 jest.mock('react-native-safe-area-context', () => ({
   SafeAreaProvider: ({ children }: { children: React.ReactNode }) => children,
@@ -51,6 +74,35 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
   setItem: jest.fn(),
   removeItem: jest.fn(),
   clear: jest.fn(),
+}));
+
+// Mock expo-secure-store
+jest.mock('expo-secure-store', () => ({
+  getItemAsync: jest.fn(),
+  setItemAsync: jest.fn(),
+  deleteItemAsync: jest.fn(),
+}));
+
+// Mock expo-local-authentication
+jest.mock('expo-local-authentication', () => ({
+  authenticateAsync: jest.fn(),
+  hasHardwareAsync: jest.fn(),
+  isEnrolledAsync: jest.fn(),
+}));
+
+// Mock AppState from react-native
+jest.mock('react-native/Libraries/AppState/AppState', () => ({
+  addEventListener: jest.fn(() => ({ remove: jest.fn() })),
+  removeEventListener: jest.fn(),
+  currentState: 'active',
+}));
+
+// Mock Appearance API
+jest.mock('react-native/Libraries/Utilities/Appearance', () => ({
+  getColorScheme: jest.fn(() => 'light'),
+  addEventListener: jest.fn(() => ({ remove: jest.fn() })),
+  removeEventListener: jest.fn(),
+  addChangeListener: jest.fn(() => ({ remove: jest.fn() })),
 }));
 
 // Mock fetch for API calls
