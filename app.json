@@ -39,9 +39,7 @@
       "expo-router",
       "expo-secure-store",
       "expo-local-authentication",
-      "react-native-svg",
-      "expo-font",
-      "react-native-reanimated/plugin"
+      "expo-font"
     ],
     "extra": {
       "router": {},
