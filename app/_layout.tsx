@@ -8,6 +8,7 @@ import {
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { ErrorBoundary } from '../src/shared/components/ErrorBoundary';
 import '../src/styles/global.css';
 
 SplashScreen.preventAutoHideAsync();
@@ -28,5 +29,9 @@ export default function RootLayout() {
 
   if (!fontsLoaded && !fontError) return null;
 
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <ErrorBoundary>
+      <Stack screenOptions={{ headerShown: false }} />
+    </ErrorBoundary>
+  );
 }

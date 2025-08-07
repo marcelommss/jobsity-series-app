@@ -1,6 +1,6 @@
 export const colors = {
   background: {
-    DEFAULT: '#FFF5F7',
+    DEFAULT: '#F5F5F7',
   },
   black: {
     DEFAULT: '#000',
