@@ -32,6 +32,7 @@ const AuthScreen = () => {
         try {
           router.replace('/(tabs)');
         } catch (error) {
+          console.error('Navigation error:', error);
         }
       }, 100);
     }

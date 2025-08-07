@@ -17,9 +17,9 @@ export const SeriesCard = ({ series }: SeriesCardProps) => {
   };
 
   return (
-    <TouchableOpacity 
+    <TouchableOpacity
       onPress={handlePress}
-      className="flex-row gap-4 p-4 bg-surface rounded-2xl shadow-lg mb-4 mx-4 max-h-36"
+      className="flex-row gap-4 p-4 bg-surface rounded-2xl shadow-lg mb-4 mx-4 max-h-40"
       activeOpacity={0.95}
     >
       <View className="w-20 h-28 rounded-xl overflow-hidden bg-surface-elevated">
@@ -27,8 +27,8 @@ export const SeriesCard = ({ series }: SeriesCardProps) => {
           <Image
             source={{ uri: series.image.medium }}
             alt={series.name}
-            style={{ 
-              width: '100%', 
+            style={{
+              width: '100%',
               height: '100%',
             }}
             resizeMode="cover"
@@ -44,7 +44,7 @@ export const SeriesCard = ({ series }: SeriesCardProps) => {
 
       <View className="flex-1 py-1">
         <View className="flex-row items-start mb-2">
-          <Text 
+          <Text
             className="text-lg font-sans-bold text-text-primary flex-1 leading-6"
             numberOfLines={2}
           >
@@ -76,14 +76,22 @@ export const SeriesCard = ({ series }: SeriesCardProps) => {
               </Text>
             </View>
           )}
-          
+
           {series.status && (
-            <View className={`px-2 py-1 rounded-xl ${
-              series.status === 'Ended' ? 'bg-support-error/20' : 'bg-emerald-200'
-            }`}>
-              <Text className={`text-xs font-sans-semibold ${
-                series.status === 'Ended' ? 'text-support-error' : 'text-emerald-800'
-              }`}>
+            <View
+              className={`px-2 py-1 rounded-xl ${
+                series.status === 'Ended'
+                  ? 'bg-support-error/20'
+                  : 'bg-emerald-200'
+              }`}
+            >
+              <Text
+                className={`text-xs font-sans-semibold ${
+                  series.status === 'Ended'
+                    ? 'text-support-error'
+                    : 'text-emerald-800'
+                }`}
+              >
                 {series.status}
               </Text>
             </View>
