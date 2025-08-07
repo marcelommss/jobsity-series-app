@@ -14,7 +14,10 @@
       "backgroundColor": "#000000"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "UIBackgroundModes": ["background-fetch"]
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -22,7 +25,11 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.marcelomms.jobsitvy"
+      "package": "com.marcelomms.jobsitvy",
+      "permissions": [
+        "USE_BIOMETRIC",
+        "USE_FINGERPRINT"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -31,7 +38,10 @@
     "plugins": [
       "expo-router",
       "expo-secure-store",
-      "expo-local-authentication"
+      "expo-local-authentication",
+      "react-native-svg",
+      "expo-font",
+      "react-native-reanimated/plugin"
     ],
     "extra": {
       "router": {},

@@ -6,7 +6,7 @@ This app was developed as part of a technical challenge for *Jobsity*.
 
 ---
 
-## ✨ Features
+## Features
 
 - Search for TV shows by name
 - View TV show details (name, poster, genres, airing days/time, summary)
@@ -25,15 +25,15 @@ This app was developed as part of a technical challenge for *Jobsity*.
 
 | Feature                          | Status |
 | -------------------------------- | ------ |
-| PIN + Fingerprint authentication | ❌      |
-| Add/remove series from favorites | ❌      |
-| Favorites browsing               | ❌      |
-| People search and person details | ❌      |
-| Unit tests                       | ✅      |
+| PIN + Fingerprint authentication | ❌    |
+| Add/remove series from favorites | ✅    |
+| Favorites browsing               | ✅    |
+| People search and person details | ✅    |
+| Unit tests                       | ✅    |
 
 ---
 
-## 🧱 Tech Stack
+## Tech Stack
 
 - [React Native](https://reactnative.dev/)
 - [Expo](https://expo.dev/)
