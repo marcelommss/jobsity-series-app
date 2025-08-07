@@ -54,3 +54,53 @@ export interface PaginationState {
   hasMore: boolean;
   loading: boolean;
 }
+
+export interface Person {
+  id: number;
+  name: string;
+  image?: {
+    medium: string;
+    original: string;
+  } | null;
+  country?: {
+    name: string;
+    code: string;
+    timezone: string;
+  } | null;
+  birthday?: string | null;
+  deathday?: string | null;
+  gender?: string | null;
+  url?: string | null;
+  updated?: number;
+  _links?: {
+    self: {
+      href: string;
+    };
+  };
+}
+
+export interface PersonSearchResult {
+  score: number;
+  person: Person;
+}
+
+export interface CastCredit {
+  self: boolean;
+  voice: boolean;
+  _links: {
+    show: {
+      href: string;
+      name: string;
+    };
+    character: {
+      href: string;
+      name: string;
+    };
+  };
+}
+
+export interface FavoriteItem
+  extends Pick<
+    Series,
+    'id' | 'name' | 'image' | 'genres' | 'rating' | 'status' | 'premiered'
+  > {}

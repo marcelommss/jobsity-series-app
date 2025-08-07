@@ -23,7 +23,6 @@ export function useEpisodes(seriesId: number): UseEpisodesReturn {
     try {
       const episodesData = await fetchSeriesEpisodes(seriesId);
 
-      // Group episodes by season
       const episodesBySeason = episodesData.reduce((acc, episode) => {
         const seasonIndex = acc.findIndex(s => s.season === episode.season);
         if (seasonIndex >= 0) {
@@ -34,7 +33,6 @@ export function useEpisodes(seriesId: number): UseEpisodesReturn {
         return acc;
       }, [] as SeasonEpisodes[]);
 
-      // Sort seasons and episodes
       episodesBySeason.sort((a, b) => a.season - b.season);
       episodesBySeason.forEach(season => {
         season.episodes.sort((a, b) => a.number - b.number);

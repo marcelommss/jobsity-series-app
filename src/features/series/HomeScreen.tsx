@@ -1,4 +1,4 @@
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View } from 'react-native';
 import { useSeriesData } from './hooks/useSeriesData';
 import { SeriesSearchInput } from './components/SeriesSearchInput';
 import { SeriesList } from './components/SeriesList';
@@ -19,14 +19,14 @@ export function HomeScreen() {
 
   if (error) {
     return (
-      <SafeAreaView className="flex-1 bg-background">
+      <View className="flex-1 bg-dark">
         <ErrorMessage error={error} onRetry={refreshSeries} />
-      </SafeAreaView>
+      </View>
     );
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-background">
+    <View className="flex-1 bg-dark">
       <SeriesSearchInput
         value={searchTerm}
         onChangeText={setSearchTerm}
@@ -38,6 +38,6 @@ export function HomeScreen() {
         hasMore={hasMore}
         onEndReached={loadMoreSeries}
       />
-    </SafeAreaView>
+    </View>
   );
 }

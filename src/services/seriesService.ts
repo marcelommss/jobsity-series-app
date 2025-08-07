@@ -17,13 +17,6 @@ class SeriesServiceError extends Error {
   }
 }
 
-/**
- * Fetches a paginated list of series from the TVMaze API.
- *
- * @param page - The page number to fetch (starting from 0).
- * @returns A promise that resolves to an array of series.
- * @throws SeriesServiceError if the request fails.
- */
 export async function fetchSeriesByPage(page: number): Promise<Series[]> {
   try {
     const response = await fetch(`${BASE_URL}/shows?page=${page}`);
@@ -42,18 +35,10 @@ export async function fetchSeriesByPage(page: number): Promise<Series[]> {
     if (error instanceof SeriesServiceError) {
       throw error;
     }
-    console.error('fetchSeriesByPage error:', error);
     throw new SeriesServiceError('Failed to fetch series data');
   }
 }
 
-/**
- * Searches for series by name using the TVMaze API.
- *
- * @param name - The name of the series to search for.
- * @returns A promise that resolves to an array of series.
- * @throws SeriesServiceError if the request fails.
- */
 export async function searchSeriesByName(name: string): Promise<Series[]> {
   try {
     const response = await fetch(
@@ -74,18 +59,10 @@ export async function searchSeriesByName(name: string): Promise<Series[]> {
     if (error instanceof SeriesServiceError) {
       throw error;
     }
-    console.error('searchSeriesByName error:', error);
     throw new SeriesServiceError('Failed to search series');
   }
 }
 
-/**
- * Fetches detailed information for a specific series.
- *
- * @param id - The series ID.
- * @returns A promise that resolves to the series details.
- * @throws SeriesServiceError if the request fails.
- */
 export async function fetchSeriesById(id: number): Promise<Series> {
   try {
     const response = await fetch(`${BASE_URL}/shows/${id}`);
@@ -104,7 +81,6 @@ export async function fetchSeriesById(id: number): Promise<Series> {
     if (error instanceof SeriesServiceError) {
       throw error;
     }
-    console.error('fetchSeriesById error:', error);
     throw new SeriesServiceError('Failed to fetch series details');
   }
 }

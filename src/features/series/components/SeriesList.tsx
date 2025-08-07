@@ -1,6 +1,6 @@
 import { FlatList, ActivityIndicator } from 'react-native';
 import { Series } from '@/types';
-import { SeriesCard } from '../SeriesCard';
+import { SeriesCard } from './SeriesCard';
 import { PAGINATION_THRESHOLD } from '@/shared/constants';
 
 interface SeriesListProps {
@@ -13,7 +13,7 @@ interface SeriesListProps {
 export function SeriesList({ data, loading, hasMore, onEndReached }: SeriesListProps) {
   return (
     <FlatList
-      className="px-4 bg-background"
+      className="px-4 bg-dark"
       data={data}
       keyExtractor={(item) => item.id.toString()}
       renderItem={({ item }) => <SeriesCard series={item} />}

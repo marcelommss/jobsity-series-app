@@ -5,9 +5,9 @@ import {
   HostGrotesk_700Bold,
   useFonts,
 } from '@expo-google-fonts/host-grotesk';
-import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { Stack } from 'expo-router';
 import { ErrorBoundary } from '../src/shared/components/ErrorBoundary';
 import '../src/styles/global.css';
 
@@ -31,7 +31,11 @@ export default function RootLayout() {
 
   return (
     <ErrorBoundary>
-      <Stack screenOptions={{ headerShown: false }} />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="auth/index" />
+        <Stack.Screen name="(tabs)" />
+      </Stack>
     </ErrorBoundary>
   );
 }

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { ScrollView, View, Text, Image, ActivityIndicator } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import { ScrollView, View, Text, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { useLocalSearchParams, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { ArrowLeftIcon } from 'lucide-react-native';
 import { Episode, APIError } from '@/types';
 
 export default function EpisodeDetailsScreen() {
@@ -15,6 +16,10 @@ export default function EpisodeDetailsScreen() {
     airdate?: string;
     runtime?: string;
   }>();
+
+  const handleBack = () => {
+    router.back();
+  };
 
   const stripHtmlTags = (text: string) => {
     return text?.replace(/<[^>]*>/g, '') || '';
@@ -34,63 +39,71 @@ export default function EpisodeDetailsScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-background">
+    <SafeAreaView className="flex-1 bg-dark">
       <ScrollView className="flex-1 p-4" showsVerticalScrollIndicator={false}>
-        {/* Episode Image */}
-        {image ? (
-          <Image
-            source={{ uri: image }}
-            className="w-full h-60 rounded-lg mb-4"
-            resizeMode="cover"
-          />
-        ) : (
-          <View className="w-full h-60 bg-gray-300 rounded-lg justify-center items-center mb-4">
-            <Text className="text-gray-600">No Image Available</Text>
-          </View>
-        )}
+        <View className="relative mb-4">
+          {image ? (
+            <Image
+              source={{ uri: image }}
+              className="w-full h-60 rounded-lg"
+              resizeMode="cover"
+            />
+          ) : (
+            <View className="w-full h-60 bg-gray-300 rounded-lg justify-center items-center">
+              <Text className="text-text-muted">No Image Available</Text>
+            </View>
+          )}
+          
+          {/* Back button - top left */}
+          <TouchableOpacity
+            onPress={handleBack}
+            className="absolute top-4 left-4 w-10 h-10 bg-black/70 rounded-full items-center justify-center"
+            activeOpacity={0.8}
+          >
+            <ArrowLeftIcon size={20} color="white" />
+          </TouchableOpacity>
+        </View>
 
-        {/* Episode Title */}
-        <Text className="text-2xl font-sans-bold text-black-700 mb-2">{name}</Text>
+        <Text className="text-2xl font-sans-bold text-text-primary mb-2">{name}</Text>
 
-        {/* Episode Info */}
         <View className="flex-row justify-between mb-4">
           <View>
-            <Text className="text-sm font-sans-semibold text-black-700">Season</Text>
-            <Text className="text-gray-600 text-lg">{season}</Text>
+            <Text className="text-sm font-sans-semibold text-text-primary">Season</Text>
+            <Text className="text-text-secondary text-lg">{season}</Text>
           </View>
           <View>
-            <Text className="text-sm font-sans-semibold text-black-700">Episode</Text>
-            <Text className="text-gray-600 text-lg">{number}</Text>
+            <Text className="text-sm font-sans-semibold text-text-primary">Episode</Text>
+            <Text className="text-text-secondary text-lg">{number}</Text>
           </View>
           {runtime && (
             <View>
-              <Text className="text-sm font-sans-semibold text-black-700">Runtime</Text>
-              <Text className="text-gray-600 text-lg">{runtime} min</Text>
+              <Text className="text-sm font-sans-semibold text-text-primary">Runtime</Text>
+              <Text className="text-text-secondary text-lg">{runtime} min</Text>
             </View>
           )}
         </View>
 
-        {/* Air Date */}
         {airdate && (
           <View className="mb-4">
-            <Text className="text-lg font-sans-semibold text-black-700 mb-1">Air Date</Text>
-            <Text className="text-gray-600 font-sans-regular">{formatDate(airdate)}</Text>
+            <Text className="text-lg font-sans-semibold text-text-primary mb-1">Air Date</Text>
+            <Text className="text-text-secondary font-sans-regular">{formatDate(airdate)}</Text>
           </View>
         )}
 
-        {/* Episode Summary */}
         {summary && (
           <View className="mb-6">
-            <Text className="text-lg font-sans-semibold text-black-700 mb-2">Summary</Text>
-            <Text className="text-gray-700 leading-6 font-sans-regular">
-              {stripHtmlTags(summary)}
-            </Text>
+            <Text className="text-lg font-sans-semibold text-text-primary mb-2">Summary</Text>
+            <View className="bg-white/10 p-4 rounded-2xl">
+              <Text className="text-text-secondary leading-6 font-sans-regular">
+                {stripHtmlTags(summary)}
+              </Text>
+            </View>
           </View>
         )}
 
         {!summary && (
           <View className="mb-6">
-            <Text className="text-gray-500 italic">No summary available for this episode.</Text>
+            <Text className="text-text-muted italic">No summary available for this episode.</Text>
           </View>
         )}
       </ScrollView>

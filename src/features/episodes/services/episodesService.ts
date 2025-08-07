@@ -10,13 +10,6 @@ class EpisodesServiceError extends Error {
   }
 }
 
-/**
- * Fetches all episodes for a specific series.
- *
- * @param seriesId - The series ID.
- * @returns A promise that resolves to an array of episodes.
- * @throws EpisodesServiceError if the request fails.
- */
 export async function fetchSeriesEpisodes(seriesId: number): Promise<Episode[]> {
   try {
     const response = await fetch(`${BASE_URL}/shows/${seriesId}/episodes`);
@@ -35,7 +28,6 @@ export async function fetchSeriesEpisodes(seriesId: number): Promise<Episode[]> 
     if (error instanceof EpisodesServiceError) {
       throw error;
     }
-    console.error('fetchSeriesEpisodes error:', error);
     throw new EpisodesServiceError('Failed to fetch episodes');
   }
 }
